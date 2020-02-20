@@ -166,6 +166,7 @@ public class DESencryptedChat {
                 // end while loop
                 
                 out.println(ct);
+                out.println(generatedHmac);
             }   
             
                 
