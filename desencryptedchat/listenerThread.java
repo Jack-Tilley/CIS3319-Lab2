@@ -7,6 +7,11 @@ package desencryptedchat;
 
 import java.net.*;
 import java.io.*;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author woah dude
@@ -15,6 +20,7 @@ public class listenerThread extends Thread{
     private Socket sock;
     private volatile boolean endFlag;
     private String privateKey = "";
+    private String hmacKey = "";
     
     public listenerThread(Socket inSock){
         sock = inSock;
@@ -49,6 +55,7 @@ public class listenerThread extends Thread{
                         + "11110001";
                 
                 privateKey = DESencryptedChat.getKey();
+                hmacKey = DESencryptedChat.getHMACKey();
                 KeyGenerator kg = new KeyGenerator(privateKey);
                 
                 
@@ -60,11 +67,28 @@ public class listenerThread extends Thread{
                 String pt = EncryptDecrypt.Decrypt(received, ReversedRoundKeyArray);
                 String printOut = ChatHelper.binaryStringToText(pt);
                 
+                String generatedHmac = "";
+                try {
+                    generatedHmac = EncryptDecrypt.generateHmac(printOut, hmacKey);
+                } catch (NoSuchAlgorithmException ex) {
+                    Logger.getLogger(listenerThread.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InvalidKeyException ex) {
+                    Logger.getLogger(listenerThread.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
                 System.out.println("---------------------------------------------------------------------------------------");
                 System.out.println(sock.getInetAddress().toString() + ": has sent: " + printOut);
                 System.out.println("\tKey: " + privateKey);
                 System.out.println("\tCyphertext received: " + received);
+                System.out.println("\tCyphertext trasnlated from binary: " + ChatHelper.binaryStringToText(received));
                 System.out.println("\tHMAC received: " + receivedHMAC);
+                System.out.println("\tHMAC generated: " + generatedHmac);
+                if (generatedHmac.equals(receivedHMAC)){
+                    System.out.println("\tBoth HMACs match. This message is authentic.");      
+                } else {
+                    System.out.println("\tBoth HMACs DO NOT match. This message IS NOT authentic.");  
+                }
+                
                 System.out.println("---------------------------------------------------------------------------------------");
                 
                 
