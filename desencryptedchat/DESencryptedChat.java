@@ -158,11 +158,17 @@ public class DESencryptedChat {
                 String generatedHmac = EncryptDecrypt.generateHmac(userInput, hmacKey);                
                 String ct = ed.Encrypt(ed.getInitialMessage(), RoundKeyArray);
                 
+                System.out.println("\tPartner plaintext received: " + "ENTER HERE");
                 
                 System.out.println("\tKey: " + privateKey);
-                System.out.println("\tCypherText in binary: " + ct);
-                System.out.println("\tCypherText translated from binary: " + ChatHelper.binaryStringToText(ct));
+                System.out.println("\tHMAC Key: " + ChatHelper.textToBinaryString(hmacKey));
+                
+//                System.out.println("\tCypherText sent in binary: " + ct);
+                System.out.println("\tCypherText sent translated from binary: " + ChatHelper.binaryStringToText(ct));
+                System.out.println("\tPartner CypherText received: " + "ENTER HERE");
+                
                 System.out.println("\tGenerated HMAC: " + generatedHmac);
+                System.out.println("\tPartner Generated HMAC: " + "ENTER HERE");
                 System.out.println("---------------------------------------------------------------------------------------");
                 
                 // end while loop
