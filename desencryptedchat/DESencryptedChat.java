@@ -16,6 +16,7 @@ import java.io.*;
 public class DESencryptedChat {
     public static Scanner scan = new Scanner(System.in);
     private static String privateKey = "";
+    private static String hmacKey = "";
     /**
      * @param args the command line arguments
      * @throws java.lang.Exception
@@ -26,7 +27,7 @@ public class DESencryptedChat {
         privateKey = ChatHelper.keyConverter(semiKey);
         
         System.out.println("Enter your HMAC key here: ");
-        String hmacKey = scan.nextLine();
+        hmacKey = scan.nextLine();
 
         Socket sock = null;
         String input;
@@ -152,12 +153,15 @@ public class DESencryptedChat {
                 KeyGenerator kg = new KeyGenerator(privateKey);
                 
                 String[] RoundKeyArray = kg.keyGenerator(privateKey);
-                                
+
+
+                String generatedHmac = EncryptDecrypt.generateHmac(userInput, hmacKey);                
                 String ct = ed.Encrypt(ed.getInitialMessage(), RoundKeyArray);
                 
                 System.out.println("\tKey: " + privateKey);
                 System.out.println("\tCypherText in binary: " + ct);
                 System.out.println("\tCypherText translated from binary: " + ChatHelper.binaryStringToText(ct));
+                System.out.println("\tGenerated HMAC: " + generatedHmac);
                 
                 // end while loop
                 

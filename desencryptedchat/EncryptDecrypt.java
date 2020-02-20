@@ -12,6 +12,7 @@ package desencryptedchat;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Formatter;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -279,12 +280,22 @@ public class EncryptDecrypt {
         return PlainText;
     }
 
+    private static String toHexString(byte[] bytes) {
+		Formatter formatter = new Formatter();
+		
+		for (byte b : bytes) {
+			formatter.format("%02x", b);
+		}
+
+		return formatter.toString();
+	}
+
     public static String generateHmac(String message, String hmacKey)
             throws NoSuchAlgorithmException, InvalidKeyException {
         SecretKeySpec signingKey = new SecretKeySpec(hmacKey.getBytes(), "HmacSHA1");
         Mac mac = Mac.getInstance("HmacSHA1");
         mac.init(signingKey);
-        return mac.doFinal(message.getBytes()).toString();
+        return toHexString(mac.doFinal(message.getBytes()));
     }
 
     public static String getInitialMessage(){
