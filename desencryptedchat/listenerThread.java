@@ -60,10 +60,13 @@ public class listenerThread extends Thread{
                 String pt = EncryptDecrypt.Decrypt(received, ReversedRoundKeyArray);
                 String printOut = ChatHelper.binaryStringToText(pt);
                 
-                
+                System.out.println("---------------------------------------------------------------------------------------");
                 System.out.println(sock.getInetAddress().toString() + ": has sent: " + printOut);
                 System.out.println("\tKey: " + privateKey);
                 System.out.println("\tCyphertext received: " + received);
+                System.out.println("\tHMAC received: " + receivedHMAC);
+                System.out.println("---------------------------------------------------------------------------------------");
+                
                 
                 
             }
