@@ -130,7 +130,7 @@ public class DESencryptedChat {
                     
                     
                 }
-                
+                System.out.println("---------------------------------------------------------------------------------------");
                 System.out.println("Me: " + userInput);
                 
                 // ENCRYPTION GOES HERE. SEND OUT ENCRYPTED CIPHERTEXT INSTEAD
@@ -158,13 +158,14 @@ public class DESencryptedChat {
                 String generatedHmac = EncryptDecrypt.generateHmac(userInput, hmacKey);                
                 String ct = ed.Encrypt(ed.getInitialMessage(), RoundKeyArray);
                 
+                
                 System.out.println("\tKey: " + privateKey);
                 System.out.println("\tCypherText in binary: " + ct);
                 System.out.println("\tCypherText translated from binary: " + ChatHelper.binaryStringToText(ct));
                 System.out.println("\tGenerated HMAC: " + generatedHmac);
+                System.out.println("---------------------------------------------------------------------------------------");
                 
                 // end while loop
-                
                 out.println(ct);
                 out.println(generatedHmac);
             }   
