@@ -70,19 +70,24 @@ public class listenerThread extends Thread{
                 String generatedHmac = "";
                 try {
                     generatedHmac = EncryptDecrypt.generateHmac(printOut, hmacKey);
-                } catch (NoSuchAlgorithmException ex) {
-                    Logger.getLogger(listenerThread.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (InvalidKeyException ex) {
+                } catch (NoSuchAlgorithmException | InvalidKeyException ex) {
                     Logger.getLogger(listenerThread.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
                 System.out.println("---------------------------------------------------------------------------------------");
                 System.out.println(sock.getInetAddress().toString() + ": has sent: " + printOut);
+                System.out.println("\tPartner plain text sent: " + "ENTER HERE");
+                
                 System.out.println("\tKey: " + privateKey);
-                System.out.println("\tCyphertext received: " + received);
-                System.out.println("\tCyphertext trasnlated from binary: " + ChatHelper.binaryStringToText(received));
+                System.out.println("\tHMAC Key: " + ChatHelper.textToBinaryString(hmacKey));
+                
+//                System.out.println("\tCyphertext received: " + received);
+                System.out.println("\tActual Cyphertext trasnlated from binary: " + ChatHelper.binaryStringToText(received));
+                System.out.println("\tPartner cypher text sent: " + "ENTER HERE");
+                
                 System.out.println("\tHMAC received: " + receivedHMAC);
                 System.out.println("\tHMAC generated: " + generatedHmac);
+                
                 if (generatedHmac.equals(receivedHMAC)){
                     System.out.println("\tBoth HMACs match. This message is authentic.");      
                 } else {
