@@ -189,6 +189,9 @@ public class DESencryptedChat {
     public static String getKey(){
         return privateKey;
     }
+    public static String getHMACKey(){
+        return hmacKey;
+    }
     
     
 }
