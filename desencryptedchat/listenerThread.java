@@ -74,6 +74,8 @@ public class listenerThread extends Thread{
                 
                 ReversedRoundKeyArray = KeyGenerator.roundKeyArrayReversal(ReversedRoundKeyArray);
                 String pt = EncryptDecrypt.Decrypt(received, ReversedRoundKeyArray);
+                String message = ChatHelper.binaryStringToText(pt).substring(0, ChatHelper.binaryStringToText(pt).length()-40);
+                String hmacReceived = pt.substring(message.length()-1, pt.length()-1);
                 String printOut = ChatHelper.binaryStringToText(pt);
                 
 //                sendBack.println(printOut);
@@ -82,7 +84,7 @@ public class listenerThread extends Thread{
                 
                 ptReceived = printOut;
                 ctReceived = ChatHelper.binaryStringToText(received);
-                hmacReceived = receivedHMAC;
+                //hmacReceived = receivedHMAC;
                 set_ptReceived(ptReceived);
                 set_ctReceived(ctReceived);
                 set_hmacReceived(hmacReceived);
@@ -90,13 +92,13 @@ public class listenerThread extends Thread{
                 String generatedHmac = "";
                 
                 try {
-                    generatedHmac = EncryptDecrypt.generateHmac(printOut, hmacKey);
+                    generatedHmac = EncryptDecrypt.generateHmac(message, hmacKey);
                 } catch (NoSuchAlgorithmException | InvalidKeyException ex) {
                     Logger.getLogger(listenerThread.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
                 System.out.println("---------------------------------------------------------------------------------------");
-                System.out.println(sock.getInetAddress().toString() + ": has sent: " + printOut);
+                System.out.println(sock.getInetAddress().toString() + ": has sent: " + message);
                 System.out.println("\tPartner plain text sent: " + partnerPlainTextSent);
 //                ptReceived = printOut;
                 

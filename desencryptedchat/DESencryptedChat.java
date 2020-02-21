@@ -161,7 +161,7 @@ public class DESencryptedChat {
 
 
                 String generatedHmac = EncryptDecrypt.generateHmac(userInput, hmacKey);                
-                String ct = ed.Encrypt(ed.getInitialMessage(), RoundKeyArray);
+                String ct = ed.Encrypt(ed.getInitialMessage() + ChatHelper.textToBinaryString(generatedHmac), RoundKeyArray);
                 
 //                System.out.println("\tPartner plaintext received: " + partnerPTReceived);
                 System.out.println("\tPartner should receive plainText: " + userInput);
