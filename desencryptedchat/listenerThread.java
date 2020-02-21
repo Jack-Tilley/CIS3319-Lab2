@@ -113,9 +113,9 @@ public class listenerThread extends Thread{
 //                hmacReceived = receivedHMAC;
                 
                 if (generatedHmac.equals(receivedHMAC)){
-                    System.out.println("\tBoth HMACs match. This message is authentic.");      
+                    System.out.println("\tBoth HMACs match. This message is authentic and retains its integrity.");      
                 } else {
-                    System.out.println("\tBoth HMACs DO NOT match. This message IS NOT authentic.");  
+                    System.out.println("\tBoth HMACs DO NOT match. This message IS NOT authentic or DOES NOT retain its integrity.");  
                 }
                 
                 System.out.println("---------------------------------------------------------------------------------------");
