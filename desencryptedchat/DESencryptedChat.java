@@ -164,18 +164,18 @@ public class DESencryptedChat {
                 String ct = ed.Encrypt(ed.getInitialMessage(), RoundKeyArray);
                 
 //                System.out.println("\tPartner plaintext received: " + partnerPTReceived);
-                System.out.println("\tPartner plainText received: " + "HOW DO I RECEIVE FROM RECIEVER");
+                System.out.println("\tPartner should receive plainText: " + userInput);
                 
                 System.out.println("\tKey: " + ChatHelper.binaryStringToText(privateKey));
                 System.out.println("\tHMAC Key: " + hmacKey);
                 
 //                System.out.println("\tCypherText sent in binary: " + ct);
                 System.out.println("\tCypherText sent: " + ChatHelper.binaryStringToText(ct));
-                System.out.println("\tPartner CypherText received: " + "HOW DO I RECEIVE FROM RECIEVER");
+                System.out.println("\tPartner should receive CypherText : " + ChatHelper.binaryStringToText(ct));
 //                System.out.println("\tPartner CypherText received: " + partnerCTReceived);
                 
                 System.out.println("\tGenerated HMAC: " + generatedHmac);
-                System.out.println("\tPartner Generated HMAC: " + "HOW DO I RECEIVE FROM RECIEVER");
+                System.out.println("\tPartner should Generate HMAC: " + generatedHmac);
 //                System.out.println("\tPartner Generated HMAC: " + partnerHMACReceived);
                 System.out.println("---------------------------------------------------------------------------------------");
                 
