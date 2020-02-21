@@ -10,6 +10,7 @@ import java.io.*;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
@@ -34,7 +35,7 @@ public class listenerThread extends Thread{
     public void run() {
         try{
             BufferedReader in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
-//            PrintWriter sendBack = new PrintWriter(sock.getOutputStream(), true);
+            PrintWriter sendBack = new PrintWriter(sock.getOutputStream(), true);
             
             System.out.println("\nListener Thread Ready.");
             
@@ -120,7 +121,9 @@ public class listenerThread extends Thread{
                 
                 System.out.println("---------------------------------------------------------------------------------------");
                 
-                
+                sendBack.println(printOut);
+                sendBack.println(ChatHelper.binaryStringToText(received));
+                sendBack.println(generatedHmac);
                 
             }
             
