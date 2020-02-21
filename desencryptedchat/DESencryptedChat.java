@@ -17,6 +17,9 @@ public class DESencryptedChat {
     public static Scanner scan = new Scanner(System.in);
     private static String privateKey = "";
     private static String hmacKey = "";
+    public static String partnerPTReceived = "";
+    public static String partnerCTReceived = "";
+    public static String partnerHMACReceived = "";
     /**
      * @param args the command line arguments
      * @throws java.lang.Exception
@@ -120,6 +123,8 @@ public class DESencryptedChat {
 //        KeyGenerator.setKey(key);
         
         PrintWriter out = new PrintWriter(sock.getOutputStream(), true);
+//        BufferedReader receivedBack = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+        
         
         System.out.println("\nLocal sender ready.");
         while(!stopFlag){
@@ -158,22 +163,30 @@ public class DESencryptedChat {
                 String generatedHmac = EncryptDecrypt.generateHmac(userInput, hmacKey);                
                 String ct = ed.Encrypt(ed.getInitialMessage(), RoundKeyArray);
                 
-                System.out.println("\tPartner plaintext received: " + "ENTER HERE");
+//                System.out.println("\tPartner plaintext received: " + partnerPTReceived);
+                System.out.println("\tPartner plainText received: " + "HOW DO I RECEIVE FROM RECIEVER");
                 
-                System.out.println("\tKey: " + privateKey);
-                System.out.println("\tHMAC Key: " + ChatHelper.textToBinaryString(hmacKey));
+                System.out.println("\tKey: " + ChatHelper.binaryStringToText(privateKey));
+                System.out.println("\tHMAC Key: " + hmacKey);
                 
 //                System.out.println("\tCypherText sent in binary: " + ct);
-                System.out.println("\tCypherText sent translated from binary: " + ChatHelper.binaryStringToText(ct));
-                System.out.println("\tPartner CypherText received: " + "ENTER HERE");
+                System.out.println("\tCypherText sent: " + ChatHelper.binaryStringToText(ct));
+                System.out.println("\tPartner CypherText received: " + "HOW DO I RECEIVE FROM RECIEVER");
+//                System.out.println("\tPartner CypherText received: " + partnerCTReceived);
                 
                 System.out.println("\tGenerated HMAC: " + generatedHmac);
-                System.out.println("\tPartner Generated HMAC: " + "ENTER HERE");
+                System.out.println("\tPartner Generated HMAC: " + "HOW DO I RECEIVE FROM RECIEVER");
+//                System.out.println("\tPartner Generated HMAC: " + partnerHMACReceived);
                 System.out.println("---------------------------------------------------------------------------------------");
                 
                 // end while loop
                 out.println(ct);
                 out.println(generatedHmac);
+                out.println(userInput);
+                out.println(ChatHelper.binaryStringToText(ct));
+                
+                ;
+//                
             }   
             
                 
